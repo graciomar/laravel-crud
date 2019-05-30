@@ -34,8 +34,7 @@ class CrudController extends Controller
      */
     public function create()
     {
-        return "route create";
-        //return view('crud.index');
+        return view('crud.create');
     }
 
     /**
