@@ -1,6 +1,17 @@
 @extends('layouts.app')
 @section('content')
+@if(Session::get('message'))
+<div class="col-sm-12">
+    <div class="alert  alert-{{Session::get('message')['class']}} alert-dismissible fade show" role="alert">
+        <span class="badge badge-pill badge-{{Session::get('message')['class']}}">{{Session::get('message')['class']}}</span> {{Session::get('message')['msg']}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+</div>
+@endif
 <div class="content mt-3">
+
     <div class="alerts">
     	<div class="row mb-3">
     		<div class="col-md-12">

@@ -13,13 +13,14 @@
                             <div class="card">
                                 <div class="card-header">Form Crud</div>
                                 <div class="card-body card-block">
-                                    <form action="" method="post" class="">
+                                    <form action="{{route('crud.store')}}" method="post" class="">
+                                        {{csrf_field()}}
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <div class="input-group-addon">Name</div>
-                                                        <input type="text" id="username3" name="username3" class="form-control">
+                                                        <input type="text" id="name" name="name" class="form-control">
                                                         <div class="input-group-addon"><i class="fa fa-user"></i></div>
                                                     </div>
                                                 </div>
@@ -40,7 +41,7 @@
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <div class="input-group-addon">Phone</div>
-                                                        <input type="text" id="username3" name="username3" class="form-control">
+                                                        <input type="text" id="phone" name="phone" class="form-control">
                                                         <div class="input-group-addon"><i class="fa fa-phone"></i></div>
                                                     </div>
                                                 </div>
@@ -49,7 +50,7 @@
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <div class="input-group-addon">Address</div>
-                                                        <input type="email" id="email3" name="email3" class="form-control">
+                                                        <input type="text" id="address" name="address" class="form-control">
                                                         <div class="input-group-addon"><i class="fa fa-map-marker"></i></div>
                                                     </div>
                                                 </div>
@@ -62,7 +63,7 @@
                                                 <div class="form-actions form-group">
                                                     <button type="submit" class="btn btn-primary btn-sm">
                                                     <i class="fa fa-plus"></i> Submit</button>
-                                                    <button type="submit" class="btn btn-primary btn-sm">
+                                                    <button type="submit" class="btn btn-secondary btn-sm">
                                                     <i class="fa fa-reply"></i> Back</button>
                                                 </div>
                                             </div>

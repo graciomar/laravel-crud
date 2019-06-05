@@ -22,6 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 /*begin routes for crud*/
 Route::get('/crud/index', 'CrudController@index')->name('crud.index');
 Route::get('/crud/create', 'CrudController@create')->name('crud.create');
+Route::post('/crud/store', 'CrudController@store')->name('crud.store');
 Route::get('/crud/edit/{id}', 'CrudController@edit')->name('crud.edit');
 Route::get('/crud/destroy/{id}', 'CrudController@destroy')->name('crud.destroy');
 /*end routes for crud*/

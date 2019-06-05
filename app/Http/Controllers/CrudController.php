@@ -45,7 +45,44 @@ class CrudController extends Controller
     */
     public function store(Request $request)
     {
-        //
+        try{
+            $crud = new \App\Model\Crud();
+            $crudCheck = $crud->where('email', $request->email )->first();
+
+            if(!is_null($crudCheck)){
+                \Session::flash('message', [
+                    'msg'=>'This email is already registered.',
+                    'class'=>'danger'
+                ]);
+                return redirect()->route('crud.index');
+            }
+
+            $crud->name = $request->name;
+            $crud->phone = $request->phone;
+            $crud->email = $request->email;
+            $crud->address = $request->address;
+
+            $crud = $crud->save();
+
+            if(!is_null($crud)){
+                \Session::flash('message', [
+                    'msg'=>'Register stored with success.',
+                    'class'=>'success'
+                ]);
+            }else{
+               \Session::flash('message', [
+                    'msg'=>'internal error.',
+                    'class'=>'danger'
+                ]); 
+            }
+
+        }catch(\Excetion $e){
+            \Session::flash('message', [
+                'msg'=>'internal error.',
+                'class'=>'danger'
+            ]);
+        }
+        return redirect()->route('crud.index');
     }
 
     /**
