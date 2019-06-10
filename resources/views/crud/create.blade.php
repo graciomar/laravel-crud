@@ -22,16 +22,27 @@
                                                         <div class="input-group-addon">Name</div>
                                                         <input type="text" id="name" name="name" class="form-control">
                                                         <div class="input-group-addon"><i class="fa fa-user"></i></div>
+
                                                     </div>
+                                                    @if($errors->has('name'))
+                                                        <span class="help-block alert-danger">
+                                                            <strong>* {{ $errors->first('name') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                             </div>
                                             <div class="col-lg-6"> 
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <div class="input-group-addon">Email</div>
-                                                        <input type="email" id="email" name="email" class="form-control">
+                                                        <input type="text" id="email" name="email" class="form-control">
                                                         <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
                                                     </div>
+                                                    @if($errors->has('email'))
+                                                        <span class="help-block alert-danger">
+                                                            <strong>* {{ $errors->first('email') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>

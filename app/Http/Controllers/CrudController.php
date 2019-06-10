@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Crud;
 use Illuminate\Http\Request;
+use App\Http\Requests\CrudRequest;
 
 class CrudController extends Controller
 {
@@ -43,20 +44,11 @@ class CrudController extends Controller
     * @param  \Illuminate\Http\Request  $request
     * @return \Illuminate\Http\Response
     */
-    public function store(Request $request)
+    public function store(CrudRequest $request)
     {
         try{
             $crud = new \App\Model\Crud();
-            $crudCheck = $crud->where('email', $request->email )->first();
-
-            if(!is_null($crudCheck)){
-                \Session::flash('message', [
-                    'msg'=>'This email is already registered.',
-                    'class'=>'danger'
-                ]);
-                return redirect()->route('crud.index');
-            }
-
+            
             $crud->name = $request->name;
             $crud->phone = $request->phone;
             $crud->email = $request->email;
@@ -75,7 +67,6 @@ class CrudController extends Controller
                     'class'=>'danger'
                 ]); 
             }
-
         }catch(\Excetion $e){
             \Session::flash('message', [
                 'msg'=>'internal error.',
