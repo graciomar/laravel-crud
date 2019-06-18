@@ -95,8 +95,13 @@ class CrudController extends Controller
     */
     public function edit($id)
     {
-        return "route edit:".$id;
-        //return view('crud.index');
+        $objCrud = new \App\Model\Crud();
+        $crud = $objCrud::find($id);
+        if(!is_null($crud)){
+            return view('crud.edit', compact('crud'));
+        }else{
+            return redirect()->route('crud.index');
+        }
     }
 
     /**
@@ -106,9 +111,37 @@ class CrudController extends Controller
      * @param  \App\Crud  $crud
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Crud $crud)
+    public function update(CrudRequest $request)
     {
-        //
+        try{
+            $objCrud = new \App\Model\Crud();
+            $crud = $objCrud::find($request->id);
+
+            $crud->name = $request->name;
+            $crud->phone = $request->phone;
+            $crud->address = $request->address;
+
+            $crud = $crud->update();
+
+            if(!is_null($crud)){
+                \Session::flash('message', [
+                    'msg'=>'Register updated with success.',
+                    'class'=>'success'
+                ]);
+            }else{
+               \Session::flash('message', [
+                    'msg'=>'internal error.',
+                    'class'=>'danger'
+                ]); 
+            }
+        }catch(\Excetion $e){
+            \Session::flash('message', [
+                'msg'=>'internal error.',
+                'class'=>'danger'
+            ]);
+        }
+        return redirect()->route('crud.index');
+
     }
 
     /**

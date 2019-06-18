@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 use App\Http\Requests\Request;
+use App\Http\Requests\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CrudRequest extends FormRequest
@@ -38,7 +39,7 @@ class CrudRequest extends FormRequest
     {
         return [
             'name'=>'required|max:255',
-            'email'=>'required|email|max:255|unique:cruds',
+            'email'=>'required|email|max:255|unique:cruds,email',
         ];
     }
 }
