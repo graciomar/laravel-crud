@@ -49,6 +49,14 @@ class CrudController extends Controller
         try{
             $crud = new \App\Model\Crud();
             
+            if(!is_null($crud->where('email', $request->email)->first())){
+            	\Session::flash('message', [
+	                'msg'=>'This email already exists.',
+	                'class'=>'danger'
+            	]);
+            	return redirect()->back();
+            }
+
             $crud->name = $request->name;
             $crud->phone = $request->phone;
             $crud->email = $request->email;
@@ -67,12 +75,13 @@ class CrudController extends Controller
                     'class'=>'danger'
                 ]); 
             }
-        }catch(\Excetion $e){
+        }catch(\Exception $e){
             \Session::flash('message', [
                 'msg'=>'internal error.',
                 'class'=>'danger'
             ]);
         }
+
         return redirect()->route('crud.index');
     }
 
@@ -134,7 +143,7 @@ class CrudController extends Controller
                     'class'=>'danger'
                 ]); 
             }
-        }catch(\Excetion $e){
+        }catch(\Exception $e){
             \Session::flash('message', [
                 'msg'=>'internal error.',
                 'class'=>'danger'
@@ -152,6 +161,23 @@ class CrudController extends Controller
     */
     public function destroy($id)
     {
-        return "route destroy:".$id;
+    	$objCrud = new \App\Model\Crud();
+        $crud = $objCrud::find($id);
+
+        $delete = $crud->delete();
+
+        if($delete){
+            \Session::flash('message', [
+                'msg'=>'Register deleted with success.',
+                'class'=>'success'
+            ]);
+        }else{
+           \Session::flash('message', [
+                'msg'=>'internal error.',
+                'class'=>'danger'
+            ]); 
+        }
+
+        return redirect()->route('crud.index');
     }
 }

@@ -24,8 +24,7 @@ class CrudRequest extends FormRequest
             'name.max'=>'Name must be up to 255 characters.',
             'email.required'=>'The name is required.',
             'email.email'=>'Email invalid.',
-            'email.max'=>'Email must be up to 255 characters.',
-            'email.unique'=>'This email already exists.'
+            'email.max'=>'Email must be up to 255 characters.'
 
         ];
     }
@@ -39,7 +38,7 @@ class CrudRequest extends FormRequest
     {
         return [
             'name'=>'required|max:255',
-            'email'=>'required|email|max:255|unique:cruds,email',
+            'email'=>'required|email|max:255',
         ];
     }
 }
