@@ -13,7 +13,7 @@ class CrudController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
-    public function index()
+    public function index(Request $request)
     {
         $cruds = [];
         $listCrud = new \App\Model\Crud();
@@ -24,6 +24,8 @@ class CrudController extends Controller
         if(!is_null($listCrud)){
             $cruds = $listCrud;
         }
+
+
 
         return view('crud.index', compact('cruds') );
     }

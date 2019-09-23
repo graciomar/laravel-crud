@@ -16,8 +16,9 @@
     	<div class="row mb-3">
     		<div class="col-md-12">
     			<button type="button" class="btn btn-success btn-sm" id="bt-add"><i class="fa fa-plus" ></i>&nbsp; Add</button>
-    			<button type="button" class="btn btn-secondary  btn-sm"  id="bt-edit"><i class="fa fa-edit"></i>&nbsp; Edit</button>
-    			<button type="button" class="btn btn-danger  btn-sm"  id="bt-delete"><i class="fa fa-trash"></i>&nbsp; Delete</button>
+    			<button type="button" class="btn btn-secondary btn-sm"  id="bt-edit"><i class="fa fa-edit"></i>&nbsp; Edit</button>
+    			<button type="button" class="btn btn-danger btn-sm"  id="bt-delete"><i class="fa fa-trash"></i>&nbsp; Delete</button>
+                <button data-toogle="modal" data-target="#largeModal" type="button" class="btn btn-info btn-sm"  id="bt-filter"><i class="fa fa-search"></i>&nbsp; Filter</button>
     		</div>
     	</div>
         <div class="row">
@@ -62,6 +63,70 @@
         </div>
     </div>
 </div> <!-- .content -->
+
+<!-- begin modal filter -->
+<div class="modal fade show" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="largeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="largeModalLabel">Filter Crud</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-filter" method="get" action="">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group has-success">
+                                <label for="cc-name" class="control-label mb-1">Code:</label>
+                                <input id="codeFilter" name="codeFilter" type="text" class="form-control valid" data-val="true" data-val-required="Please enter the code" autocomplete="code" aria-required="true" aria-invalid="false" aria-describedby="cc-name-error">
+                                <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true">
+                                    
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-9">
+                            <div class="form-group has-success">
+                                <label for="cc-name" class="control-label mb-1">Name:</label>
+                                <input id="nameFilter" name="nameFilter" type="text" class="form-control valid" data-val="true" data-val-required="Please enter the nameFilter" autocomplete="nameFilter" aria-required="true" aria-invalid="false" aria-describedby="cc-name-error">
+                                <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true">
+                                    
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-success">
+                                <label for="cc-name" class="control-label mb-1">Email:</label>
+                                <input id="emailFilter" name="emailFilter" type="text" class="form-control valid" data-val="true" data-val-required="Please enter the email" autocomplete="emailFilter" aria-required="true" aria-invalid="false" aria-describedby="cc-name-error">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group has-success">
+                                <label for="cc-name" class="control-label mb-1">Address:</label>
+                                <input id="addressFilter" name="addressFilter" type="text" class="form-control valid">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal filter -->
+
 @push('scripts')
 <script type="text/javascript">
 jQuery(document).ready(function($) {
@@ -70,6 +135,7 @@ jQuery(document).ready(function($) {
     var btAdd = $('#bt-add');
     var btEdit = $('#bt-edit');
     var btDelete = $('#bt-delete');
+    var btFilter = $('#bt-filter');
 
     var idRegister = "";
 
@@ -103,6 +169,10 @@ jQuery(document).ready(function($) {
                 window.location.href = rota;
             }
         }
+    });
+
+    btFilter.on('click', function(event) {
+        $('#filterModal').modal('show');
     });
 });
 </script>
