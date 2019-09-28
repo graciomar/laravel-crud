@@ -80,7 +80,7 @@
                         <div class="col-md-3">
                             <div class="form-group has-success">
                                 <label for="cc-name" class="control-label mb-1">Code:</label>
-                                <input id="codeFilter" name="codeFilter" type="text" class="form-control valid" data-val="true" data-val-required="Please enter the code" autocomplete="code" aria-required="true" aria-invalid="false" aria-describedby="cc-name-error">
+                                <input id="codeFilter" name="codeFilter" type="text" class="form-control valid" data-val="true" data-val-required="Please enter the code" autocomplete="code" aria-required="true" aria-invalid="false" aria-describedby="cc-name-error" @if(isset($request)) @if(isset($request->codeFilter)) value="{{$request->codeFilter}}" @endif @endif >
                                 <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true">
                                     
                                 </span>
@@ -90,7 +90,7 @@
                         <div class="col-md-9">
                             <div class="form-group has-success">
                                 <label for="cc-name" class="control-label mb-1">Name:</label>
-                                <input id="nameFilter" name="nameFilter" type="text" class="form-control valid" data-val="true" data-val-required="Please enter the nameFilter" autocomplete="nameFilter" aria-required="true" aria-invalid="false" aria-describedby="cc-name-error">
+                                <input id="nameFilter" name="nameFilter" type="text" class="form-control valid" data-val="true" data-val-required="Please enter the nameFilter" autocomplete="nameFilter" aria-required="true" aria-invalid="false" aria-describedby="cc-name-error" @if(isset($request)) @if(isset($request->nameFilter)) value="{{$request->nameFilter}}" @endif @endif >
                                 <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true">
                                     
                                 </span>
@@ -101,14 +101,14 @@
                         <div class="col-md-6">
                             <div class="form-group has-success">
                                 <label for="cc-name" class="control-label mb-1">Email:</label>
-                                <input id="emailFilter" name="emailFilter" type="text" class="form-control valid" data-val="true" data-val-required="Please enter the email" autocomplete="emailFilter" aria-required="true" aria-invalid="false" aria-describedby="cc-name-error">
+                                <input id="emailFilter" name="emailFilter" type="text" class="form-control valid" data-val="true" data-val-required="Please enter the email" autocomplete="emailFilter" aria-required="true" aria-invalid="false" aria-describedby="cc-name-error" @if(isset($request)) @if(isset($request->emailFilter)) value="{{$request->emailFilter}}" @endif @endif >
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group has-success">
                                 <label for="cc-name" class="control-label mb-1">Address:</label>
-                                <input id="addressFilter" name="addressFilter" type="text" class="form-control valid">
+                                <input id="addressFilter" name="addressFilter" type="text" class="form-control valid" @if(isset($request)) @if(isset($request->addressFilter)) value="{{$request->addressFilter}}" @endif @endif>
                             </div>
                         </div>
                     </div>

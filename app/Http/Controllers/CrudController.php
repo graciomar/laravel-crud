@@ -16,18 +16,37 @@ class CrudController extends Controller
     public function index(Request $request)
     {
         $cruds = [];
+        $crudsArray = [];
         $listCrud = new \App\Model\Crud();
         $listCrud = $listCrud->orderBy('id', 'desc');
 
-        $listCrud = $listCrud->paginate(10);
+        if(!empty($request->codeFilter)){
+            $crudsArray['codeFilter'] = $request->codeFilter;
+            $listCrud = $listCrud->where('id', $request->codeFilter );
+        }
+
+        if(!empty($request->nameFilter)){
+            $crudsArray['nameFilter'] = $request->nameFilter;
+            $listCrud = $listCrud->where('name', 'LIKE', '%'.$request->nameFilter.'%' );
+        }
+
+        if(!empty($request->emailFilter)){
+            $crudsArray['emailFilter'] = $request->emailFilter;
+            $listCrud = $listCrud->where('email', 'LIKE', '%'.$request->emailFilter.'%' );
+        }
+
+        if(!empty($request->addressFilter)){
+            $crudsArray['addressFilter'] = $request->addressFilter;
+            $listCrud = $listCrud->where('address', 'LIKE', '%'.$request->addressFilter.'%' );
+        }
+
+        $listCrud = $listCrud->paginate(10)->appends($crudsArray);
 
         if(!is_null($listCrud)){
             $cruds = $listCrud;
         }
 
-
-
-        return view('crud.index', compact('cruds') );
+        return view('crud.index', compact('cruds', 'request') );
     }
 
     /**
