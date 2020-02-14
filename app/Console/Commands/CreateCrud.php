@@ -47,6 +47,7 @@ class CreateCrud extends Command
         $this->createViews($crud, 'index');
         $this->createViews($crud, 'edit');
         $this->createViews($crud, 'create');
+        $this->createRoutes($crud);
         $this->info("CRUD: {$crud} was successfully created.");
     }
 
@@ -76,6 +77,33 @@ class CreateCrud extends Command
         if (!file_exists($arquivo)){
             \File::put($arquivo, $codigo);
         }
+    }
+
+    /**
+    * Create group routes.
+    *
+    * @param $crud
+    */
+    public function createRoutes($crud)
+    {
+        $arquivo = "routes/web.php";
+        $codigo = file_get_contents($arquivo);
+        $crud1 = strtolower($crud);
+        $crud2 = ucfirst($crud);
+        $routes = "\n\n/*
+|--------------------------------------------------------------------------
+| Routes for posts
+|--------------------------------------------------------------------------
+*/
+Route::name('{$crud1}.')->prefix('posts')->group(function () {
+    Route::get('/', '{$crud2}ControllerAPI@index')->name('index');
+    Route::post('/', '{$crud2}ControllerAPI@store')->name('create');
+    Route::get('/{id}', '{$crud2}ControllerAPI@show')->name('show');
+    Route::patch('/{id}', '{$crud2}ControllerAPI@update')->name('update');
+    Route::delete('/{id}', '{$crud2}ControllerAPI@destroy')->name('destroy');
+});";
+        $codigo = $codigo.$routes;
+        \File::put($arquivo, $codigo);
     }
 
 }
