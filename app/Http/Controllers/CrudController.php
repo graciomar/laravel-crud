@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Crud;
 use Illuminate\Http\Request;
 use App\Http\Requests\CrudRequest;
 
@@ -15,38 +14,38 @@ class CrudController extends Controller
     */
     public function index(Request $request)
     {
-        $cruds = [];
-        $crudsArray = [];
-        $listCrud = new \App\Model\Crud();
-        $listCrud = $listCrud->orderBy('id', 'desc');
+        $registers = [];
+        $registersArray = [];
+        $newCrud = new \App\Model\Crud();
+        $listRegisters = $newCrud->orderBy('id', 'desc');
 
         if(!empty($request->codeFilter)){
-            $crudsArray['codeFilter'] = $request->codeFilter;
-            $listCrud = $listCrud->where('id', $request->codeFilter );
+            $registersArray['codeFilter'] = $request->codeFilter;
+            $listRegisters = $listRegisters->where('id', $request->codeFilter );
         }
 
         if(!empty($request->nameFilter)){
-            $crudsArray['nameFilter'] = $request->nameFilter;
-            $listCrud = $listCrud->where('name', 'LIKE', '%'.$request->nameFilter.'%' );
+            $registersArray['nameFilter'] = $request->nameFilter;
+            $listRegisters = $listRegisters->where('name', 'LIKE', '%'.$request->nameFilter.'%' );
         }
 
         if(!empty($request->emailFilter)){
-            $crudsArray['emailFilter'] = $request->emailFilter;
-            $listCrud = $listCrud->where('email', 'LIKE', '%'.$request->emailFilter.'%' );
+            $registersArray['emailFilter'] = $request->emailFilter;
+            $listRegisters = $listRegisters->where('email', 'LIKE', '%'.$request->emailFilter.'%' );
         }
 
         if(!empty($request->addressFilter)){
-            $crudsArray['addressFilter'] = $request->addressFilter;
-            $listCrud = $listCrud->where('address', 'LIKE', '%'.$request->addressFilter.'%' );
+            $registersArray['addressFilter'] = $request->addressFilter;
+            $listRegisters = $listRegisters->where('address', 'LIKE', '%'.$request->addressFilter.'%' );
         }
 
-        $listCrud = $listCrud->paginate(10)->appends($crudsArray);
+        $listRegisters = $listRegisters->paginate(10)->appends($registersArray);
 
-        if(!is_null($listCrud)){
-            $cruds = $listCrud;
+        if(!is_null($listRegisters)){
+            $registers = $listRegisters;
         }
 
-        return view('crud.index', compact('cruds', 'request') );
+        return view('crud.index', compact('registers', 'request') );
     }
 
     /**

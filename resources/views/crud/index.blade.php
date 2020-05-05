@@ -40,21 +40,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($cruds as $crud)
+                                @foreach($registers as $register)
                                 <tr>
-                                    <th scope="row" data-id="{{$crud->id}}">{{$crud->id}}</th>
-                                    <td>{{$crud->name}}</td>
-                                    <td>{{$crud->email}}</td>
-                                    <td>{{$crud->phone}}</td>
-                                    <td>{{$crud->address}}</td>
-                                    <td>{{$crud->created_at}}</td>
+                                    <th scope="row" data-id="{{$register->id}}">{{$register->id}}</th>
+                                    <td>{{$register->name}}</td>
+                                    <td>{{$register->email}}</td>
+                                    <td>{{$register->phone}}</td>
+                                    <td>{{$register->address}}</td>
+                                    <td>{{$register->created_at}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        @if(isset($cruds)) {{-- Pagination laravel --}}
+                        @if(isset($registers)) {{-- Pagination laravel --}}
                             <h5 id="links" class="pull-right">
-                                {{$cruds->links()}}
+                                {{$registers->links()}}
                             </h5>
                         @endif
                     </div>

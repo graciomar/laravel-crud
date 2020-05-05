@@ -48,6 +48,8 @@ class CreateCrud extends Command
         $this->createViews($crud, 'edit');
         $this->createViews($crud, 'create');
         $this->createRoutes($crud);
+        $this->createModel($crud);
+        $this->createController($crud);
         $this->info("CRUD: {$crud} was successfully created.");
     }
 
@@ -73,7 +75,38 @@ class CreateCrud extends Command
     {
         $arquivo = "resources/views/{$crud}/{$view}.blade.php";
         $codigo = file_get_contents("resources/views/crud/{$view}.blade.php");
-        $codigo = str_ireplace("#crud", ucfirst($crud), $codigo);
+        $codigo = str_ireplace("crud", $crud, $codigo);
+        if (!file_exists($arquivo)){
+            \File::put($arquivo, $codigo);
+        }
+    }
+
+    /**
+    * Create Controller if not exists.
+    *
+    * @param $crud
+    */
+    public function createController($crud)
+    {
+        $arquivo = "app/Http/Controllers/".ucfirst($crud)."Controller.php";
+        $codigo = file_get_contents("app/Http/Controllers/CrudController.php");
+        $codigo = str_ireplace("CrudController", ucfirst($crud.'Controller'), $codigo);
+        $codigo = str_ireplace("Crud", ucfirst($crud), $codigo);
+        if (!file_exists($arquivo)){
+            \File::put($arquivo, $codigo);
+        }
+    }
+
+    /**
+    * Create Controller if not exists.
+    *
+    * @param $crud
+    */
+    public function createModel($crud)
+    {
+        $arquivo = "app/Model/".ucfirst($crud).".php";
+        $codigo = file_get_contents("app/Model/Crud.php");
+        $codigo = str_ireplace("Crud", ucfirst($crud), $codigo);
         if (!file_exists($arquivo)){
             \File::put($arquivo, $codigo);
         }
@@ -92,15 +125,16 @@ class CreateCrud extends Command
         $crud2 = ucfirst($crud);
         $routes = "\n\n/*
 |--------------------------------------------------------------------------
-| Routes for posts
+| Routes for {$crud1}
 |--------------------------------------------------------------------------
 */
-Route::name('{$crud1}.')->prefix('posts')->group(function () {
-    Route::get('/', '{$crud2}ControllerAPI@index')->name('index');
-    Route::post('/', '{$crud2}ControllerAPI@store')->name('create');
-    Route::get('/{id}', '{$crud2}ControllerAPI@show')->name('show');
-    Route::patch('/{id}', '{$crud2}ControllerAPI@update')->name('update');
-    Route::delete('/{id}', '{$crud2}ControllerAPI@destroy')->name('destroy');
+Route::name('{$crud1}.')->prefix('{$crud1}')->group(function () {
+    Route::get('/index', '{$crud2}Controller@index')->name('index');
+    Route::get('/create', '{$crud2}Controller@create')->name('create');
+    Route::post('/store', '{$crud2}Controller@store')->name('store');
+    Route::get('/show/{id}', '{$crud2}Controller@show')->name('show');
+    Route::patch('/edit/{id}', '{$crud2}Controller@edit')->name('edit');
+    Route::delete('/destroy/{id}', '{$crud2}Controller@destroy')->name('destroy');
 });";
         $codigo = $codigo.$routes;
         \File::put($arquivo, $codigo);

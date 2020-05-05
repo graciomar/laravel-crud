@@ -28,20 +28,8 @@ Route::get('/crud/edit/{id}', 'CrudController@edit')->name('crud.edit');
 Route::get('/crud/destroy/{id}', 'CrudController@destroy')->name('crud.destroy');
 /*end routes for crud*/
 
-/*
-|--------------------------------------------------------------------------
-| Routes for posts
-|--------------------------------------------------------------------------
-*/
-Route::name('student.')->prefix('posts')->group(function () {
-    Route::get('/', 'StudentControllerAPI@index')->name('index');
-    Route::post('/', 'StudentControllerAPI@store')->name('create');
-    Route::get('/{id}', 'StudentControllerAPI@show')->name('show');
-    Route::patch('/{id}', 'StudentControllerAPI@update')->name('update');
-    Route::delete('/{id}', 'StudentControllerAPI@destroy')->name('destroy');
-});
-
 Route::get('/teste', function () {
 	return view('test');
 	//return 'teste';
 });
+
