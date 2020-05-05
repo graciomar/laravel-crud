@@ -40,3 +40,8 @@ Route::name('student.')->prefix('posts')->group(function () {
     Route::patch('/{id}', 'StudentControllerAPI@update')->name('update');
     Route::delete('/{id}', 'StudentControllerAPI@destroy')->name('destroy');
 });
+
+Route::get('/teste', function () {
+	return view('test');
+	//return 'teste';
+});
