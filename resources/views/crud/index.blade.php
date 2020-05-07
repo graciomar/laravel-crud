@@ -31,8 +31,14 @@
                         <table class="table table-bordered" id="list-registers">
                             <thead>
                                 <tr>
+                                    @php
+                                        $page=1;
+                                        $order='ASC';
+                                        if(isset($_GET['page'])) $page = $_GET['page'];
+                                        if(isset($_GET['order']) && $_GET['order'] == 'ASC') $order = 'DESC';
+                                    @endphp
                                     <th scope="col">Cod.</th>
-                                    <th scope="col">Name</th>
+                                    <th scope="col"><a href="crud/index?by=name&page={{$page}}&order={{$order}}"><strong>Name</strong></a></th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Phone</th>
                                     <th scope="col">Address</th>
@@ -127,6 +133,53 @@
 </div>
 <!-- end modal filter -->
 
+<!-- begin modal Notify -->
+<div class="modal fade show" id="notifyModal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="smallmodalLabel">Notify</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Missing select a register.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal Notify -->
+
+<!-- begin modal Confirm -->
+<div class="modal fade show" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="smallmodalLabel">Notify</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Do you really want to delete this record?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="bt-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal Confirm -->
+
 @push('scripts')
 <script type="text/javascript">
 jQuery(document).ready(function($) {
@@ -136,6 +189,7 @@ jQuery(document).ready(function($) {
     var btEdit = $('#bt-edit');
     var btDelete = $('#bt-delete');
     var btFilter = $('#bt-filter');
+    var btConfirm = $('#bt-confirm');
 
     var idRegister = "";
 
@@ -151,7 +205,7 @@ jQuery(document).ready(function($) {
 
     btEdit.on('click', function(event) {
         if(idRegister == ""){
-            alert('Select a record to edit.');
+            $('#notifyModal').modal('show');
         }else{
             var rota = "{{route('crud.edit', ['id'=> '#id'])}}";
             rota = rota.replace('#id', idRegister);
@@ -161,14 +215,16 @@ jQuery(document).ready(function($) {
 
     btDelete.on('click', function(event) {
         if(idRegister == ""){
-            alert('Select a record to delete.');
+            $('#notifyModal').modal('show');
         }else{
-            var rota = "{{route('crud.destroy', ['id'=> '#id'])}}";
-            rota = rota.replace('#id', idRegister);
-            if(confirm('Do you really want to delete this record?')){
-                window.location.href = rota;
-            }
+            $('#confirmModal').modal('show');
         }
+    });
+
+     btConfirm.on('click', function(event) {
+        var rota = "{{route('crud.destroy', ['id'=> '#id'])}}";
+        rota = rota.replace('#id', idRegister);
+        window.location.href = rota;
     });
 
     btFilter.on('click', function(event) {

@@ -17,8 +17,9 @@ class CrudController extends Controller
         $registers = [];
         $registersArray = [];
         $newCrud = new \App\Model\Crud();
-        $listRegisters = $newCrud->orderBy('id', 'desc');
+        $listRegisters = $newCrud->select('id', 'name', 'email', 'phone', 'address', 'created_at');
 
+        #region Filters
         if(!empty($request->codeFilter)){
             $registersArray['codeFilter'] = $request->codeFilter;
             $listRegisters = $listRegisters->where('id', $request->codeFilter );
@@ -38,6 +39,15 @@ class CrudController extends Controller
             $registersArray['addressFilter'] = $request->addressFilter;
             $listRegisters = $listRegisters->where('address', 'LIKE', '%'.$request->addressFilter.'%' );
         }
+        #endregion
+
+        #region Orders
+        if(!empty($request->by)){
+            $registersArray['by'] = $request->by;
+            $registersArray['order'] = $request->order;
+            $listRegisters = $listRegisters->orderBy($request->by, $request->order );
+        }
+        #endregion
 
         $listRegisters = $listRegisters->paginate(10)->appends($registersArray);
 

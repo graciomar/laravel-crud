@@ -29,7 +29,16 @@ Route::get('/crud/destroy/{id}', 'CrudController@destroy')->name('crud.destroy')
 /*end routes for crud*/
 
 Route::get('/teste', function () {
-	return view('test');
+    $im = new Imagick( 'document.pdf[ 0]' ); 
+    $im->setImageColorspace(255); 
+    $im->setResolution(300, 300);
+    $im->setCompressionQuality(95); 
+    $im->setImageFormat('jpeg'); 
+    $im->writeImage('thumb.jpg'); 
+    $im->clear(); 
+    $im->destroy();
+
+	//return view('test');
 	//return 'teste';
 });
 
