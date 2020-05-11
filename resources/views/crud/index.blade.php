@@ -32,17 +32,21 @@
                             <thead>
                                 <tr>
                                     @php
-                                        $page=1;
-                                        $order='ASC';
+                                        $page = 1;
+                                        $order = 'ASC';
+                                        $icon = '<i class="fa fa-chevron-down"></i>';
                                         if(isset($_GET['page'])) $page = $_GET['page'];
-                                        if(isset($_GET['order']) && $_GET['order'] == 'ASC') $order = 'DESC';
+                                        if(isset($_GET['order']) && $_GET['order'] == 'ASC') {
+                                            $icon = '<i class="fa fa-chevron-up"></i>'; 
+                                            $order = 'DESC'; 
+                                        }
                                     @endphp
-                                    <th scope="col">Cod.</th>
-                                    <th scope="col"><a href="crud/index?by=name&page={{$page}}&order={{$order}}"><strong>Name</strong></a></th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Phone</th>
-                                    <th scope="col">Address</th>
-                                    <th scope="col">Created at</th>
+                                    <th scope="col">Cod <a href="crud/index?by=id&page={{$page}}&order={{$order}}"><?php echo $icon;?></a></th>
+                                    <th scope="col">Name <a href="crud/index?by=name&page={{$page}}&order={{$order}}"><?php echo $icon;?></a> </th>
+                                    <th scope="col">Email <a href="crud/index?by=email&page={{$page}}&order={{$order}}"><?php echo $icon;?></a></th>
+                                    <th scope="col">Phone <a href="crud/index?by=phone&page={{$page}}&order={{$order}}"><?php echo $icon;?></a></th>
+                                    <th scope="col">Address <a href="crud/index?by=address&page={{$page}}&order={{$order}}"><?php echo $icon;?></a></th>
+                                    <th scope="col">Created at <a href="crud/index?by=created_at&page={{$page}}&order={{$order}}"><?php echo $icon;?></a></th>
                                 </tr>
                             </thead>
                             <tbody>

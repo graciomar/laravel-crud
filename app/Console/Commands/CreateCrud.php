@@ -50,6 +50,7 @@ class CreateCrud extends Command
         $this->createRoutes($crud);
         $this->createModel($crud);
         $this->createController($crud);
+        //$this->createMigration($crud);
         $this->info("CRUD: {$crud} was successfully created.");
     }
 
@@ -92,6 +93,23 @@ class CreateCrud extends Command
         $codigo = file_get_contents("app/Http/Controllers/CrudController.php");
         $codigo = str_ireplace("CrudController", ucfirst($crud.'Controller'), $codigo);
         $codigo = str_ireplace("Crud", ucfirst($crud), $codigo);
+        if (!file_exists($arquivo)){
+            \File::put($arquivo, $codigo);
+        }
+    }
+
+
+    /**
+    * Create Migration if not exists.
+    *
+    * @param $crud
+    */
+    public function createMigration($crud)
+    {
+        $arquivo = "database/migrations/".$crud.".php";
+        $codigo = file_get_contents("database/migrations/crud.php");
+        $codigo = str_ireplace("cruds", $crud.'s', $codigo);
+        $codigo = str_ireplace("class Crud", 'class '.ucfirst($crud), $codigo);
         if (!file_exists($arquivo)){
             \File::put($arquivo, $codigo);
         }

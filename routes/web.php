@@ -41,4 +41,3 @@ Route::get('/teste', function () {
 	//return view('test');
 	//return 'teste';
 });
-
