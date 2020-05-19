@@ -25,10 +25,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 |--------------------------------------------------------------------------
 */
 Route::name('crud.')->prefix('crud')->group(function () {
-    Route::get('/index', 'ClientController@index')->name('index');
-    Route::get('/create', 'ClientController@create')->name('create');
-    Route::post('/store', 'ClientController@store')->name('store');
-    Route::get('/show/{id}', 'ClientController@show')->name('show');
-    Route::patch('/edit/{id}', 'ClientController@edit')->name('edit');
-    Route::delete('/destroy/{id}', 'ClientController@destroy')->name('destroy');
+    Route::get('/index', 'CrudController@index')->name('index');
+    Route::get('/create', 'CrudController@create')->name('create');
+    Route::post('/store', 'CrudController@store')->name('store');
+    Route::get('/show/{id}', 'CrudController@show')->name('show');
+    Route::get('/edit/{id}', 'CrudController@edit')->name('edit');
+    Route::post('/update', 'CrudController@update')->name('update');
+    Route::delete('/destroy/{id}', 'CrudController@destroy')->name('destroy');
 });

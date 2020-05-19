@@ -152,7 +152,8 @@ Route::name('{$crud1}.')->prefix('{$crud1}')->group(function () {
     Route::get('/create', '{$crud2}Controller@create')->name('create');
     Route::post('/store', '{$crud2}Controller@store')->name('store');
     Route::get('/show/{id}', '{$crud2}Controller@show')->name('show');
-    Route::patch('/edit/{id}', '{$crud2}Controller@edit')->name('edit');
+    Route::get('/edit/{id}', '{$crud2}Controller@edit')->name('edit');
+    Route::post('/update', '{$crud2}Controller@update')->name('update');
     Route::delete('/destroy/{id}', '{$crud2}Controller@destroy')->name('destroy');
 });";
         $codigo = $codigo.$routes;
