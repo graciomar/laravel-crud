@@ -17,6 +17,7 @@
     		<div class="col-md-12">
     			<button type="button" class="btn btn-success btn-sm" id="bt-add"><i class="fa fa-plus" ></i>&nbsp; Add</button>
     			<button type="button" class="btn btn-secondary btn-sm"  id="bt-edit"><i class="fa fa-edit"></i>&nbsp; Edit</button>
+                <button type="button" class="btn btn-primary btn-sm"  id="bt-show"><i class="fa fa-eye"></i>&nbsp; Show</button>
     			<button type="button" class="btn btn-danger btn-sm"  id="bt-delete"><i class="fa fa-trash"></i>&nbsp; Delete</button>
                 <button data-toogle="modal" data-target="#largeModal" type="button" class="btn btn-info btn-sm"  id="bt-filter"><i class="fa fa-search"></i>&nbsp; Filter</button>
     		</div>
@@ -191,6 +192,7 @@ jQuery(document).ready(function($) {
     var tr = $('#list-registers tbody tr');
     var btAdd = $('#bt-add');
     var btEdit = $('#bt-edit');
+    var btShow = $('#bt-show');
     var btDelete = $('#bt-delete');
     var btFilter = $('#bt-filter');
     var btConfirm = $('#bt-confirm');
@@ -212,6 +214,16 @@ jQuery(document).ready(function($) {
             $('#notifyModal').modal('show');
         }else{
             var rota = "{{route('crud.edit', ['id'=> '#id'])}}";
+            rota = rota.replace('#id', idRegister);
+            window.location.href = rota;
+        }
+    });
+
+    btShow.on('click', function(event) {
+        if(idRegister == ""){
+            $('#notifyModal').modal('show');
+        }else{
+            var rota = "{{route('crud.show', ['id'=> '#id'])}}";
             rota = rota.replace('#id', idRegister);
             window.location.href = rota;
         }

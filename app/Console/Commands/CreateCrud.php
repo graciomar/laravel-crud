@@ -46,6 +46,7 @@ class CreateCrud extends Command
         $this->createDir($crud);
         $this->createViews($crud, 'index');
         $this->createViews($crud, 'edit');
+        $this->createViews($crud, 'show');
         $this->createViews($crud, 'create');
         $this->createRoutes($crud);
         $this->createModel($crud);

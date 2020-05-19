@@ -19,25 +19,16 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-/*begin routes for crud*/
-Route::get('/crud/index', 'CrudController@index')->name('crud.index');
-Route::get('/crud/create', 'CrudController@create')->name('crud.create');
-Route::post('/crud/store', 'CrudController@store')->name('crud.store');
-Route::post('/crud/update', 'CrudController@update')->name('crud.update');
-Route::get('/crud/edit/{id}', 'CrudController@edit')->name('crud.edit');
-Route::get('/crud/destroy/{id}', 'CrudController@destroy')->name('crud.destroy');
-/*end routes for crud*/
-
-Route::get('/teste', function () {
-    $im = new Imagick( 'document.pdf[ 0]' ); 
-    $im->setImageColorspace(255); 
-    $im->setResolution(300, 300);
-    $im->setCompressionQuality(95); 
-    $im->setImageFormat('jpeg'); 
-    $im->writeImage('thumb.jpg'); 
-    $im->clear(); 
-    $im->destroy();
-
-	//return view('test');
-	//return 'teste';
+/*
+|--------------------------------------------------------------------------
+| Routes for Crud
+|--------------------------------------------------------------------------
+*/
+Route::name('crud.')->prefix('crud')->group(function () {
+    Route::get('/index', 'ClientController@index')->name('index');
+    Route::get('/create', 'ClientController@create')->name('create');
+    Route::post('/store', 'ClientController@store')->name('store');
+    Route::get('/show/{id}', 'ClientController@show')->name('show');
+    Route::patch('/edit/{id}', 'ClientController@edit')->name('edit');
+    Route::delete('/destroy/{id}', 'ClientController@destroy')->name('destroy');
 });

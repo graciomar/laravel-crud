@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title text-uppercase">CREATE CRUD</strong>
+                        <strong class="card-title text-uppercase">EDIT CRUD</strong>
                     </div>
                     <div class="card-body">
                         <div class="card">
@@ -73,8 +73,8 @@
                                             <div class="form-actions form-group">
                                                 <button type="submit" class="btn btn-primary btn-sm">
                                                 <i class="fa fa-plus"></i> Submit</button>
-                                                <button type="submit" class="btn btn-secondary btn-sm">
-                                                <i class="fa fa-reply"></i> Back</button>
+                                                <a href="{{route('crud.index')}}" class="btn btn-secondary btn-sm">
+                                                <i class="fa fa-reply"></i> Back</a>
                                             </div>
                                         </div>
                                     </div>
@@ -91,7 +91,7 @@
 <script type="text/javascript">
 jQuery(document).ready(function($) {
     "use strict";
-    /*MY SCRIPT CREATE CRUD*/
+    /*MY SCRIPT EDIT CRUD*/
 });
 </script>
 @endpush

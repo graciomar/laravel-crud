@@ -121,9 +121,15 @@ class CrudController extends Controller
     * @param  \App\Crud  $crud
     * @return \Illuminate\Http\Response
     */
-    public function show(Crud $crud)
+    public function show($id)
     {
-        //
+        $objCrud = new \App\Model\Crud();
+        $crud = $objCrud::find($id);
+        if(!is_null($crud)){
+            return view('crud.show', compact('crud'));
+        }else{
+            return redirect()->route('crud.index');
+        }
     }
 
     /**
