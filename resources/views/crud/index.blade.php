@@ -26,7 +26,12 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title text-uppercase">CRUD EXAMPLE</strong>
+                        <strong class="card-title text-uppercase">LIST CRUD</strong>
+                        <select name="selectLimit" id="selectLimit">
+                            @foreach($arrayLimites as $limit)
+                            <option @if(isset($_GET['limit']) && $_GET['limit'] == $limit)  selected="selected" @endif value="{{$limit}}">{{$limit}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered" id="list-registers">
@@ -35,19 +40,21 @@
                                     @php
                                         $page = 1;
                                         $order = 'ASC';
+                                        $limit = '';
                                         $icon = '<i class="fa fa-chevron-down"></i>';
-                                        if(isset($_GET['page'])) $page = $_GET['page'];
-                                        if(isset($_GET['order']) && $_GET['order'] == 'ASC') {
+                                        if(isset($request->page)) $page = $request->page;
+                                        if(isset($request->limit)) $limit = $request->limit;
+                                        if(isset($request->order) && $request->order == 'ASC') {
                                             $icon = '<i class="fa fa-chevron-up"></i>'; 
                                             $order = 'DESC'; 
                                         }
                                     @endphp
-                                    <th scope="col">Cod <a href="crud/index?by=id&page={{$page}}&order={{$order}}"><?php echo $icon;?></a></th>
-                                    <th scope="col">Name <a href="crud/index?by=name&page={{$page}}&order={{$order}}"><?php echo $icon;?></a> </th>
-                                    <th scope="col">Email <a href="crud/index?by=email&page={{$page}}&order={{$order}}"><?php echo $icon;?></a></th>
-                                    <th scope="col">Phone <a href="crud/index?by=phone&page={{$page}}&order={{$order}}"><?php echo $icon;?></a></th>
-                                    <th scope="col">Address <a href="crud/index?by=address&page={{$page}}&order={{$order}}"><?php echo $icon;?></a></th>
-                                    <th scope="col">Created at <a href="crud/index?by=created_at&page={{$page}}&order={{$order}}"><?php echo $icon;?></a></th>
+                                    <th scope="col">Cod <a href="crud/index?by=id&page={{$page}}&order={{$order}}&limit={{$limit}}"><?php echo $icon;?></a></th>
+                                    <th scope="col">Name <a href="crud/index?by=name&page={{$page}}&order={{$order}}&limit={{$limit}}"><?php echo $icon;?></a> </th>
+                                    <th scope="col">Email <a href="crud/index?by=email&page={{$page}}&order={{$order}}&limit={{$limit}}"><?php echo $icon;?></a></th>
+                                    <th scope="col">Phone <a href="crud/index?by=phone&page={{$page}}&order={{$order}}&limit={{$limit}}"><?php echo $icon;?></a></th>
+                                    <th scope="col">Address <a href="crud/index?by=address&page={{$page}}&order={{$order}}&limit={{$limit}}"><?php echo $icon;?></a></th>
+                                    <th scope="col">Created at <a href="crud/index?by=created_at&page={{$page}}&order={{$order}}&limit={{$limit}}"><?php echo $icon;?></a></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,7 +70,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        @if(isset($registers)) {{-- Pagination laravel --}}
+                        @if(isset($registers) && (empty($request->limit) || $request->limit == 'All') ) {{-- Pagination laravel --}}
                             <h5 id="links" class="pull-right">
                                 {{$registers->links()}}
                             </h5>
@@ -196,6 +203,7 @@ jQuery(document).ready(function($) {
     var btDelete = $('#bt-delete');
     var btFilter = $('#bt-filter');
     var btConfirm = $('#bt-confirm');
+    var selectLimit = $('#selectLimit');
 
     var idRegister = "";
 
@@ -237,9 +245,15 @@ jQuery(document).ready(function($) {
         }
     });
 
-     btConfirm.on('click', function(event) {
+    btConfirm.on('click', function(event) {
         var rota = "{{route('crud.destroy', ['id'=> '#id'])}}";
         rota = rota.replace('#id', idRegister);
+        window.location.href = rota;
+    });
+
+    selectLimit.on('change', function(event) {
+        var rota = "{{route('crud.index')}}?limit=#";
+        rota = rota.replace('#', $(this).val() );
         window.location.href = rota;
     });
 

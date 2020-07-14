@@ -18,6 +18,9 @@ class CrudController extends Controller
         $registersArray = [];
         $newCrud = new \App\Model\Crud();
         $listRegisters = $newCrud->select('id', 'name', 'email', 'phone', 'address', 'created_at');
+        $arrayLimites = ['All', 15, 30, 50, 100];
+
+        $listRegisters = $listRegisters->limit( 15 );
 
         #region Filters
         if(!empty($request->codeFilter)){
@@ -49,13 +52,17 @@ class CrudController extends Controller
         }
         #endregion
 
-        $listRegisters = $listRegisters->paginate(10)->appends($registersArray);
+        if(!empty($request->limit) && $request->limit != 'All'){
+            $listRegisters = $listRegisters->limit($request->limit)->get();
+        }else{
+            $listRegisters = $listRegisters->paginate(10)->appends($registersArray);
+        }
 
         if(!is_null($listRegisters)){
             $registers = $listRegisters;
         }
 
-        return view('crud.index', compact('registers', 'request') );
+        return view('crud.index', compact('registers', 'request', 'arrayLimites') );
     }
 
     /**
