@@ -23,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $newMenu = new \App\Model\Menu();
+        $menus = $newMenu->menus();
+
+        \View::Share('menus', $menus);
+
     }
 }
